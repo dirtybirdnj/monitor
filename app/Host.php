@@ -16,11 +16,14 @@ class Host extends Model
 	$latency = $ping->ping();
 	
 	\App\Ping::create(['host_id' => $this->id, 'latency' => $latency]);
-		
-	
-	//dd($latency,$host->name);	 
+		 
 	 
  }
  
+ 
+ public function pings()
+{
+    return $this->hasMany('App\Ping');
+}
 
 }

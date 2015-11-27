@@ -12,8 +12,10 @@
 */
 
 $app->get('/', function () use ($app) {
-    //return $app->welcome();
-    
-    
+
      return view('dashboard', ['title' => 'Dashboard']);
 });
+
+$app->get('hosts', 'HostController@index');
+$app->get('hosts/{id}', 'HostController@view');
+
