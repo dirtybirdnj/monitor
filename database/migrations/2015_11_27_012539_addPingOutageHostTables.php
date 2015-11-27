@@ -15,21 +15,22 @@ class AddPingOutageHostTables extends Migration
 		Schema::create('pings', function (Blueprint $table) {
 		    $table->increments('id');
 		    $table->integer('host_id');
-		    $table->timestamps();
+		    $table->integer('latency');
+		    $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 		    
 		});
 		
 		Schema::create('outages', function (Blueprint $table) {
 		    $table->increments('id');
 		    $table->integer('host_id');
-			$table->timestamp('start');
-			$table->timestamp('end');
+			$table->timestamp('start_at');
+			$table->timestamp('end_at');
 		});
 		
 		Schema::create('hosts', function (Blueprint $table) {
 		    $table->increments('id');
 		    $table->string('name');
-		    $table->timestamp('created');
+		    $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 		});				
     }
 

@@ -1,6 +1,10 @@
 <?php namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Host;
+use Nmap\Nmap;
+//use JJG\Ping;
+
 
 class PingHosts extends Command {
 
@@ -25,7 +29,22 @@ class PingHosts extends Command {
      */
     public function fire()
     {
-        $this->info('it works!');
+	    
+		$allHosts = Host::all();
+		
+		foreach($allHosts as $host){
+
+			$host->ping();
+			
+
+			//$nmap = new Nmap();
+			//$nmap = Nmap::create()->scan([ $host->name ]);
+			//dd($nmap);
+			//$ports = $nmap->getOpenPorts();
+			//dd($nmap,$ports);
+			
+		}
+		
     }
 
 }

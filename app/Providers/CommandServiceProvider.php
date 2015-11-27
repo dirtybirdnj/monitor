@@ -2,6 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 use App\Console\Commands\PingHosts;
+use App\Console\Commands\AddHost;
 
 class CommandServiceProvider extends ServiceProvider
 {
@@ -17,9 +18,15 @@ class CommandServiceProvider extends ServiceProvider
         {
             return new PingHosts;
         });
+        
+        $this->app->singleton('command.hosts.add', function()
+        {
+            return new AddHost;
+        });        
 
-        $this->commands(
-            'command.ping.hosts'
-        );
+        $this->commands([
+            'command.ping.hosts',
+            'command.hosts.add',
+        ]);
     }
 }

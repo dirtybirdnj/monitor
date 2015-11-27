@@ -96,4 +96,7 @@ $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
     require __DIR__.'/../app/Http/routes.php';
 });
 
+ini_set('display_errors', 1); 
+error_reporting(E_ALL);
+
 return $app;
