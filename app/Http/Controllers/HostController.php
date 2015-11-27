@@ -20,11 +20,7 @@ class HostController extends Controller
     
     public function view($id)
     {
-	    
-	    $host = Host::findOrFail($id);
-	    
-	    //dd($host->pings);
-	    
-        return view('hosts.view', ['host' => $host]);
+	    	    
+        return view('hosts.view', ['host' => Host::findOrFail($id)]);
     }    
 }

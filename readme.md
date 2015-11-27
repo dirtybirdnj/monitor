@@ -1,8 +1,8 @@
-## Lumen / Raspberry Pi Internet Monitor
+## Lumen / Internet Monitor and Port Scanning Utility
 
-The monitor application is designed to run on a Raspberry Pi.
+An  Internet Monitor and Server Information Tool
 
-It uses nmap to ping known hosts at regular intervals, and then records their responses.
+The tool uses ping on known hosts at regular intervals, and then records their responses.
 
 When multiple failed requests are logged, an Outage is created. When the internet returns, the Outage record has an end date recorded.
 
