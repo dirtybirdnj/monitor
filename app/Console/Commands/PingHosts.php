@@ -36,13 +36,6 @@ class PingHosts extends Command {
 
 			$host->ping();
 			
-
-			//$nmap = new Nmap();
-			//$nmap = Nmap::create()->scan([ $host->name ]);
-			//dd($nmap);
-			//$ports = $nmap->getOpenPorts();
-			//dd($nmap,$ports);
-			
 		}
 		
     }

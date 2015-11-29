@@ -8,4 +8,5 @@
      public $timestamps = false;   
      protected $fillable = ['host_id','latency'];
      
+     
  }

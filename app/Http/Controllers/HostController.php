@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Host;
+use App\PortScan;
+use Illuminate\Http\Request;
 
 class HostController extends Controller
 {
@@ -20,7 +22,19 @@ class HostController extends Controller
     
     public function view($id)
     {
+	    $host = Host::findOrFail($id);
+	    $portScans = PortScan::all();
 	    	    
-        return view('hosts.view', ['host' => Host::findOrFail($id)]);
-    }    
+        return view('hosts.view', ['host' => $host, 'portScans' => $portScans]);
+    }
+    
+    public function store(Request $request)
+    {
+	    
+		$newHost = Host::create($request->input());
+		
+
+	    
+        return view('hosts.index', ['host' => Host::all()]);
+    }          
 }
