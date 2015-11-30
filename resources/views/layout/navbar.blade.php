@@ -11,14 +11,20 @@
     </div>
     
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/">Dashboard</a></li>
+	<!--
+      <ul class="nav navbar-nav navbar-right">   
+	    <li><a href="/">Dashboard</a></li>
         <li><a href="#">Settings</a></li>
-        <li><a href="#">Logout</a></li>
-      </ul>
+        <li><a href="#">Logout</a></li> 
+      </ul>-->
       <form class="navbar-form navbar-right">
-        <input type="text" class="form-control" placeholder="Search Hosts...">
+        <!-- <input type="text" class="form-control" placeholder="Search Hosts..."> -->
+        <div class="btn-group" role="group" aria-label="...">
+		  <a href="/scans/start" class="btn <?php echo $activeScan ? 'btn-success' : 'btn-default' ?>">Scan On</a>
+		  <a href="/scans/stop" class="btn <?php echo !is_null($activeScan) ? 'btn-default' : 'btn-danger' ?>">Scan Off</a>
+		</div>
       </form>
+
     </div>
   </div>
 </nav>

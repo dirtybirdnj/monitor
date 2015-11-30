@@ -16,7 +16,6 @@ class HostController extends Controller
      */
     public function index()
     {
-	    
         return view('hosts.index', ['hosts' => Host::all()]);
     }
     
@@ -32,9 +31,17 @@ class HostController extends Controller
     {
 	    
 		$newHost = Host::create($request->input());
-		
-
+        return view('hosts.index', ['hosts' => Host::all()]);
+        
+    }
+    
+    public function setStatus($id,$status){
 	    
-        return view('hosts.index', ['host' => Host::all()]);
+		$host = Host::findOrFail($id);
+		$host->active = $status;
+		$host->save();
+		
+		return redirect('hosts');	    
+	    
     }          
 }

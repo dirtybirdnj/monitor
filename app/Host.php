@@ -1,7 +1,7 @@
 <?php namespace App;
  
 use Illuminate\Database\Eloquent\Model;
-use Ping;
+use App\Ping;
 
 class Host extends Model
 {
@@ -15,10 +15,19 @@ class Host extends Model
 	 
 		$ping = new \JJG\Ping($this->name);
 		$latency = $ping->ping();
+		$ping = Ping::create(['host_id' => $this->id, 'latency' => $latency]);
 		
-		Ping::create(['host_id' => $this->id, 'latency' => $latency]);
+		return $ping;
 
 	}
+	
+	public function setStatus($status){
+		
+		$this->active = $status;
+		$this->save();
+	}
+	
+
  
  
 	public function pings()

@@ -21,15 +21,21 @@ $app->get('hosts', 'HostController@index');
 $app->get('hosts/{id}', 'HostController@view');
 
 //Secure Host Store
-//$app->post('hosts', 'HostController@store');
+$app->post('hosts', 'HostController@store');
 
+//Perform Host Actions
+$app->get('hosts/{id}/portscan','PortScanController@store');
+$app->get('hosts/{id}/ping','PingController@store');
+$app->get('hosts/{id}/status/{status}','HostController@setStatus');
 
 //PortScan views
 $app->get('portscans','PortScanController@index');
 $app->get('portscans/{id}', 'PortScanController@view');
 
-//Perform Scan
-$app->get('hosts/{id}/portscan','PortScanController@store');
+//Scan Views
+$app->get('scans','ScanController@index');
+$app->get('scans/start','ScanController@start');
+$app->get('scans/stop','ScanController@stop');
 
-$app->get('hosts/{id}/ping','PingController@store');
+
 
