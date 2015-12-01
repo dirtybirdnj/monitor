@@ -37,5 +37,8 @@ $app->get('scans','ScanController@index');
 $app->get('scans/start','ScanController@start');
 $app->get('scans/stop','ScanController@stop');
 
+//Outages
+$app->get('outages','OutageController@index');
+
 
 

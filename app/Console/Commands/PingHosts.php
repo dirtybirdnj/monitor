@@ -3,6 +3,7 @@
 use Illuminate\Console\Command;
 use App\Host;
 use App\Scan;
+use App\Outage;
 use DB;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -33,6 +34,7 @@ class PingHosts extends Command {
     {
 	 
 	 	$activeScan = Scan::where('active',1)->first();
+	 	$activeOutage = Outage::where('end_at',null)->first();
 	 	
 	 	//If there is an active scan
 	 	if(!is_null($activeScan)){
@@ -55,8 +57,7 @@ class PingHosts extends Command {
 					$this->error('Pinged ' . $host->name . ' ...  0ms response time');				
 					
 				}
-				//dd($host->ping());
-				
+								
 			}
 			
 			if($failedHosts > 0){
@@ -65,26 +66,46 @@ class PingHosts extends Command {
 					
 					$this->error('All hosts failed to respond! INTERNET OUTAGE!');
 					
+					//If no outage exists, create a new one
+					if(is_null($activeOutage)){ 
+						
+						Outage::create();
+						$this->error('New outage created');
+						
+					} else {
+						
+						$this->error('existing outage still active');
+					}
 					
 				} else {
 					
-					$this->info('Some hosts failed to respond. ' . $failedHosts . '/' . $allHosts->count() . ' success rate');
-					
+					$this->info('Some hosts failed to respond. ' . $failedHosts . '/' . $activeHosts->count() . ' success rate');
+
+					if(is_null($activeOutage)) $this->error('No active outage');
+					else {
+						
+						$this->info('Active outage ended!');
+						$activeOutage->stop();
+						
+					}
 				}
 				
 				
 			} else {
 				
+					if(is_null($activeOutage)) $this->info('No active outage');
+					else {
+						
+						$this->info('Active outage ended!');
+						$activeOutage->stop();
+						
+					}				
+				
 				$this->info('Internet health good! No failed requests from active hosts');
 				
 			}
 		
-		} else {
-			
-			$this->error('No active scan, aborting ping of hosts');
-			
-		}	
-		
+		} //end if active scan
     }
 
 }

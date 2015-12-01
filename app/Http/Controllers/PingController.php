@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Host;
 use App\Ping;
 use Illuminate\Http\Request;
-use JJG\Ping as JJGPing;
 
 class PingController extends Controller
 {
@@ -23,24 +22,15 @@ class PingController extends Controller
     
     public function view($id)
     {
-	    $host = Ping::findOrFail($id);
+	    $ping = Ping::findOrFail($id);
 	    	    
-        return view('pings.view', ['ping' => $host]);
+        return view('pings.view', ['ping' => $ping]);
     }
     
     public function store($hostId)
     {
-	    
-		$host = Host::findOrFail($hostId);
-		
-		$pingService = new JJGPing($host->name);
-		$latency = $pingService->ping();
-		
-		$ping = new Ping;
-		$ping->host_id = $host->id;
-		$ping->latency = $latency;
-		$ping->save();
-		
+
+	    $host = Host::findOrFail($hostId)->ping();				
 		return redirect('hosts/' . $host->id);
 		
     }

@@ -2,6 +2,7 @@
  
 use Illuminate\Database\Eloquent\Model;
 use App\Ping;
+use JJG\Ping as JJGPing;
 
 class Host extends Model
 {
@@ -13,10 +14,9 @@ class Host extends Model
 	public function ping()
 	{
 	 
-		$ping = new \JJG\Ping($this->name);
+		$ping = new JJGPing($this->name);
 		$latency = $ping->ping();
 		$ping = Ping::create(['host_id' => $this->id, 'latency' => $latency]);
-		
 		return $ping;
 
 	}
