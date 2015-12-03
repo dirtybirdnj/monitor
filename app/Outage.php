@@ -7,6 +7,28 @@
  {
      public $timestamps = false;   
      protected $fillable = [];
+
+	protected $appends = ['display_start','display_end'];
+     
+	public function getDisplayStartAttribute()
+	{
+
+		$date = Carbon::createFromFormat('Y-m-d H:i:s', $this->start_at, 'UTC');
+		$date->setTimezone('America/New_York');		
+
+		return $date->format('F j, Y, g:i a');
+
+	}
+
+	public function getDisplayEndAttribute()
+	{
+
+		$date = Carbon::createFromFormat('Y-m-d H:i:s', $this->end_at, 'UTC');
+		$date->setTimezone('America/New_York');		
+
+		return $date->format('F j, Y, g:i a');
+
+	}  	      
      
      public function stop(){
 	     

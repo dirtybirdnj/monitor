@@ -14,8 +14,8 @@
 	@foreach ($outages as $outage)
 	<tr>
 		<td>{{$outage['id']}}</td>
-		<td>{{$outage['start_at']}}</td>
-		<td>{{$outage['end_at']}}</td>
+		<td>{{$outage['display_start']}}</td>
+		<td>{{$outage['display_end']}}</td>
 		<td><!--<a href="/outages/{{$outage['id']}}" class="btn btn-default pull-right">View</a>--></td>
 	</tr>
 	@endforeach
