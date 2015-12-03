@@ -26,13 +26,11 @@ class Host extends Model
 		$this->active = $status;
 		$this->save();
 	}
-	
-
- 
+	 
  
 	public function pings()
 	{
-	return $this->hasMany('App\Ping');
+	return $this->hasMany('App\Ping')->orderBy('id','DESC');
 	}
  
  	public function ports()

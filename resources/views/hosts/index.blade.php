@@ -38,7 +38,7 @@
 	      </form>			
 			
 		</td>
-		<td><a href="/hosts/{{$host['id']}}/portscan" class="btn btn-default pull-right">Port Scan</a></td>
+		<td><!--<a href="/hosts/{{$host['id']}}/portscan" class="btn btn-default pull-right">Port Scan</a>--></td>
 		<td><a href="/hosts/{{$host['id']}}" class="btn btn-default pull-right">View</a></td>
 		
 	</tr>

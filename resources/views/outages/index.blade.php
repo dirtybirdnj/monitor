@@ -16,7 +16,7 @@
 		<td>{{$outage['id']}}</td>
 		<td>{{$outage['start_at']}}</td>
 		<td>{{$outage['end_at']}}</td>
-		<td><a href="/outages/{{$outage['id']}}" class="btn btn-default pull-right">View</a></td>
+		<td><!--<a href="/outages/{{$outage['id']}}" class="btn btn-default pull-right">View</a>--></td>
 	</tr>
 	@endforeach
 </table>

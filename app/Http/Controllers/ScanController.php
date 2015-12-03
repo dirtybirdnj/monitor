@@ -33,8 +33,8 @@ class ScanController extends Controller
     {
 
 	    
-		//$activeScan = Scan::where('active',true)->first();
-		if(!is_null($this->activeScan)) $this->activeScan->stop();
+		$activeScan = Scan::where('active',true)->first();
+		if(!is_null($activeScan)) $activeScan->stop();
 		
 		$scan = Scan::create();
 		return redirect('scans');
@@ -44,7 +44,8 @@ class ScanController extends Controller
     public function stop()
     {
 	    
-		if(!is_null($this->activeScan)) $this->activeScan->stop();
+        $activeScan = Scan::where('active',true)->first();
+        if(!is_null($activeScan)) $activeScan->stop();
 		return redirect('scans');
 		
     }    

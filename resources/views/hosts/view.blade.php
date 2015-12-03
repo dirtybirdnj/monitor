@@ -16,7 +16,7 @@
 	<tr>
 		<td>{{$ping['id']}}</td>
 		<td>{{$ping['latency']}}</td>
-		<td>{{$ping['created_at']}}</td>
+		<td>{{$ping['display_date']}}</td>
 
 		
 	</tr>

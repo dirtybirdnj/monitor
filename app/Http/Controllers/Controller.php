@@ -10,8 +10,8 @@ class Controller extends BaseController
 {
     function __construct(){
 	    
-	    $activeScan = Scan::where('active',true)->first(); 
-	    $this->activeScan = $activeScan;
+	    // $activeScan = Scan::where('active',true)->first(); 
+	    // $this->activeScan = $activeScan;
 	    
     }
 }
