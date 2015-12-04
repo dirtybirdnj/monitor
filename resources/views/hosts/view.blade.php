@@ -7,7 +7,7 @@
 	<a href="/hosts/{{$host['id']}}/ping" class="btn btn-default pull-right">Ping</a>	
 </h2>
 
-<canvas id="pingsChart" width="800" height="400"></canvas>
+<canvas id="pingsChart" width="940" height="600"></canvas>
 
 <h3>PortScans</h3>
 <table class="table table-striped">
@@ -38,19 +38,18 @@ var data = {
 	labels: jsonData.labels,
 	datasets: [
 	{
-        label: "My First dataset",
+        label: "Pings (ms)",
+        strokeColor: "#000",
 		data: jsonData.pings
 
 	}]
 }
 
+//Line graph options
 var options = {
 
     ///Boolean - Whether grid lines are shown across the chart
-    scaleShowGridLines : false,
-
-    //Don't show the labels
-    scaleShowLabels : true,
+    scaleShowGridLines : true,
 
     //String - Colour of the grid lines
     scaleGridLineColor : "rgba(0,0,0,.05)",
@@ -62,7 +61,7 @@ var options = {
     scaleShowHorizontalLines: true,
 
     //Boolean - Whether to show vertical lines (except Y axis)
-    scaleShowVerticalLines: true,
+    scaleShowVerticalLines: false,
 
     //Boolean - Whether the line is curved between points
     bezierCurve : true,
@@ -95,6 +94,8 @@ var options = {
     //legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 
 };
+
+
 console.log(data);
 
 var ctx = document.getElementById("pingsChart").getContext("2d");

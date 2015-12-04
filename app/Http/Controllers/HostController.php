@@ -6,6 +6,7 @@ use App\Host;
 use App\Ping;
 use App\PortScan;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class HostController extends Controller
 {
@@ -58,16 +59,24 @@ class HostController extends Controller
 
     private function latestPings($id)
     {
-        $pings = Ping::where('host_id',$id)->limit('360')->get();
+        $pings = Ping::where('host_id',$id)->orderBy('id','DESC')->limit('600')->get();
 
         $jsonData['pings'] = [];
         $jsonData['dates'] = [];        
         
+        $i = 1;
         foreach($pings as $ping)
         {
             $jsonData['pings'][] = $ping->latency;
             $jsonData['dates'][] = $ping->display_date;
-            $jsonData['labels'][] = [];
+            
+            if($i === 0){
+                $jsonData['labels'][] = $ping->chart_date;
+                $i = 50;
+            } else {
+                $jsonData['labels'][] = [];
+                $i--;
+            }
         }
 
         return $jsonData;

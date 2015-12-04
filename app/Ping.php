@@ -18,6 +18,16 @@ class Ping extends Model
 
 		return $date->format('F j, Y, g:i a');
 
-	}      
+	}
+
+	public function getChartDateAttribute()
+	{
+
+		$date = Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at, 'UTC');
+		$date->setTimezone('America/New_York');		
+
+		return $date->format('h:i a');
+
+	}   	      
 
 }
