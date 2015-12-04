@@ -40,6 +40,9 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/bower/jquery/dist/jquery.min.js"></script>
     <script src="/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower/Chart.js/Chart.js"></script>
+
+    @yield('javascript')
 
   </body>
 </html>

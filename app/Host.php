@@ -26,6 +26,13 @@ class Host extends Model
 		$this->active = $status;
 		$this->save();
 	}
+
+	//Why isn't this working?
+	// public function latestPings($id)
+	// {
+	// 	$pings = Ping::where('host_id',$id)->limit('100')->get();
+	// 	return $pings;
+	// }	
 	 
  
 	public function pings()
@@ -42,5 +49,6 @@ class Host extends Model
 	{
 	return $this->belongsTo('App\PortScan');
 	}
+	
 
 }

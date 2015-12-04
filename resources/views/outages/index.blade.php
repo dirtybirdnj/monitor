@@ -15,7 +15,12 @@
 	<tr>
 		<td>{{$outage['id']}}</td>
 		<td>{{$outage['display_start']}}</td>
-		<td>{{$outage['display_end']}}</td>
+		<td>
+		@if(!is_null($outage['display_end']))
+		{{$outage['display_end']}}
+		@endif
+
+		</td>
 		<td><!--<a href="/outages/{{$outage['id']}}" class="btn btn-default pull-right">View</a>--></td>
 	</tr>
 	@endforeach

@@ -23,6 +23,7 @@
 	public function getDisplayEndAttribute()
 	{
 
+		if($this->end_at === NULL) return NULL;
 		$date = Carbon::createFromFormat('Y-m-d H:i:s', $this->end_at, 'UTC');
 		$date->setTimezone('America/New_York');		
 
