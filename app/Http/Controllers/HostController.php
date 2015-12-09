@@ -25,12 +25,9 @@ class HostController extends Controller
     {
 
         $host = Host::where(['id' => $id])->get(['id','name'])->first();
-        $pings = $this->latestPings($id);
-
-        $pingsJson = json_encode($pings);
 	    $portScans = PortScan::where(['id' => $id])->get();
 	    	    
-        return view('hosts.view', ['host' => $host, 'portScans' => $portScans,'pingsJson' => $pingsJson]);
+        return view('hosts.view', ['host' => $host, 'portScans' => $portScans]);
     }
     
     public function store(Request $request)
@@ -56,8 +53,8 @@ class HostController extends Controller
     {
 
         if(!$start || $end){
-            $start = Carbon::now('EST')->toDateTimeString();
-            $end = Carbon::now('EST')->subHours(24)->toDateTimeString();
+            $start = Carbon::now('UTC')->toDateTimeString();
+            $end = Carbon::now('UTC')->subHours(12)->toDateTimeString();
         }
         else
         {
@@ -68,13 +65,11 @@ class HostController extends Controller
         
         $pings = Ping::host($id)->whereBetween('created_at',[$end,$start])->get();
 
-        return $pings;
+        return $this->chartFormatPings($pings);
 
     }       
 
-    private function latestPings($id)
-    {
-        $pings = Ping::where('host_id',$id)->orderBy('id','DESC')->limit('600')->get();
+    private function chartFormatPings($pings){
 
         $jsonData['pings'] = [];
         $jsonData['dates'] = [];        
@@ -95,5 +90,6 @@ class HostController extends Controller
         }
 
         return $jsonData;
+
     }              
 }

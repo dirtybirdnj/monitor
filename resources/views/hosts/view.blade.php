@@ -7,7 +7,9 @@
 	<a href="/hosts/{{$host['id']}}/ping" class="btn btn-default pull-right">Ping</a>	
 </h2>
 
-<canvas id="pingsChart" width="940" height="600"></canvas>
+<div style="width: 100%">
+    <canvas id="pingsChart"></canvas>
+</div>
 
 <h3>PortScans</h3>
 <table class="table table-striped">
@@ -29,21 +31,7 @@
 
 <script type="text/javascript">
 
-var jsonData = JSON.parse('{!! $pingsJson !!}');
-
-//console.log(jsonData.dates);
-
-var data = {
-	//labels: [jsonData.dates],
-	labels: jsonData.labels,
-	datasets: [
-	{
-        label: "Pings (ms)",
-        strokeColor: "#000",
-		data: jsonData.pings
-
-	}]
-}
+Chart.defaults.global.responsive = true; 
 
 //Line graph options
 var options = {
@@ -93,13 +81,47 @@ var options = {
     //String - A legend template
     //legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 
+    scaleOverride: true, 
+    scaleStartValue: 0, 
+    scaleStepWidth: 10, 
+    scaleSteps: 20
+
 };
 
-
-console.log(data);
-
 var ctx = document.getElementById("pingsChart").getContext("2d");
-var myBarChart = new Chart(ctx).Line(data,options);
+
+$(function() {
+        
+    var dataURL = '/hosts/{{$host['id']}}/pings';
+
+    $.ajax(dataURL)
+      .done(function(chartData) {
+       console.log(chartData);
+        //Chart Defaults
+        var data = {
+            //labels: [jsonData.dates],
+            labels: chartData.labels,
+            datasets: [
+            {
+                label: "Pings (ms)",
+                strokeColor: "#000",
+                data: chartData.pings
+
+            }]
+        }
+
+       var myBarChart = new Chart(ctx).Line(data,options);
+
+      })
+      .fail(function() {
+        alert( "error" );
+      })/    
+    
+    console.log( "dom ready!" );
+
+
+});
+
 
 </script>
 
