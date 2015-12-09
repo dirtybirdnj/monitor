@@ -30,4 +30,12 @@ class Ping extends Model
 
 	}   	      
 
+
+    public function scopeHost($query,$id)
+    {
+
+        return $query->where('host_id', $id);
+    }	
+
+
 }

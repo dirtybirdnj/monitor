@@ -26,6 +26,8 @@ $app->post('hosts', 'HostController@store');
 //Perform Host Actions
 $app->get('hosts/{id}/portscan','PortScanController@store');
 $app->get('hosts/{id}/ping','PingController@store');
+$app->get('hosts/{id}/pings','HostController@getPings');
+$app->get('hosts/{id}/pings/{start?}/{end?}','HostController@getPings');
 $app->get('hosts/{id}/status/{status}','HostController@setStatus');
 
 //PortScan views

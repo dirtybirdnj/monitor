@@ -23,17 +23,11 @@ class HostController extends Controller
     
     public function view($id)
     {
-	    //$host = Host::findOrFail($id);
 
         $host = Host::where(['id' => $id])->get(['id','name'])->first();
         $pings = $this->latestPings($id);
 
-        //@todo - Prevent the host model from loading all these ping records
-        //@todo - only grab the name from the host
-        //dd($host->pings->toArray());
-
         $pingsJson = json_encode($pings);
-
 	    $portScans = PortScan::where(['id' => $id])->get();
 	    	    
         return view('hosts.view', ['host' => $host, 'portScans' => $portScans,'pingsJson' => $pingsJson]);
@@ -55,7 +49,28 @@ class HostController extends Controller
 		
 		return redirect('hosts');	    
 	    
-    }   
+    }
+
+    //Returns JSON for FE graphs
+    public function getPings($id,$start=false,$end=false)
+    {
+
+        if(!$start || $end){
+            $start = Carbon::now('EST')->toDateTimeString();
+            $end = Carbon::now('EST')->subHours(24)->toDateTimeString();
+        }
+        else
+        {
+            $start = Carbon::createFromTimestamp($start);
+            if($end) $end = Carbon::createFromTimestamp($end);
+            else  Carbon::createFromTimestamp($end)->subHours(24);  
+        }
+        
+        $pings = Ping::host($id)->whereBetween('created_at',[$end,$start])->get();
+
+        return $pings;
+
+    }       
 
     private function latestPings($id)
     {
